@@ -47,3 +47,15 @@ O ambiente virtual precisa ser ativado sempre que você quiser trabalhar no proj
 ```bash
 git pull origin main
 ```
+
+Para instalar as dependências listadas em um arquivo `requirements.txt`, você pode usar o comando `pip install -r requirements.txt`. Aqui está como você faria isso:
+
+1. Certifique-se de estar dentro do ambiente virtual onde deseja instalar as dependências.
+
+2. No terminal, navegue até o diretório onde está localizado o arquivo `requirements.txt`.
+
+3. Execute o comando a seguir para instalar as dependências listadas no arquivo:
+   
+   ```bash
+   pip install -r requirements.txt
+   ```
