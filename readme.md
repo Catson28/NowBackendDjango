@@ -41,3 +41,9 @@
    Isso iniciará o servidor de desenvolvimento do Django. Abra um navegador e acesse `http://127.0.0.1:8000/` para ver a página inicial do projeto.
 
 O ambiente virtual precisa ser ativado sempre que você quiser trabalhar no projeto Django. Para desativá-lo, basta digitar `deactivate` no terminal.
+
+##   Codigo para baixar sempre actualizacoes
+
+```bash
+git pull origin main
+```
