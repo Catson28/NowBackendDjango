@@ -71,3 +71,26 @@ Para instalar as dependências listadas em um arquivo `requirements.txt`, você 
    ```bash
    pip install -r requirements.txt
    ```
+
+#  _
+
+Para ativar o ambiente virtual no Windows, siga estes passos:
+
+1. **Abra o Prompt de Comando**:
+   - Pressione `Win + R`, digite `cmd` e pressione `Enter`.
+
+2. **Navegue até o Diretório do Projeto**:
+   - Use o comando `cd` para ir até o diretório onde o ambiente virtual foi criado. Por exemplo:
+     ```shell
+     cd caminho\para\seu\projeto
+     ```
+
+3. **Ative o Ambiente Virtual**:
+   - No diretório do projeto, ative o ambiente virtual usando o seguinte comando:
+     ```shell
+     env\Scripts\activate
+     ```
+
+Após executar esse comando, você verá o nome do ambiente virtual no prompt de comando, indicando que o ambiente está ativado.
+
+Se precisar de ajuda adicional ou encontrar algum erro, por favor, me avise!

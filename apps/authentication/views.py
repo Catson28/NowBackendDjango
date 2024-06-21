@@ -55,7 +55,7 @@ class LoginBaseClass(ABC,LoginView):
         refresh = self.get_token(self.user)
         # generate access and refresh tokens 
         data['refresh'] = str(refresh)
-        data['access'] = str(refresh.access_token)
+        data['accessToken'] = str(refresh.access_token)
 
         return Response(data)
 
@@ -70,6 +70,7 @@ class CustomLoginView(LoginBaseClass):
             self.user = self.serializer.validated_data['user']
             # Coloque aqui a lógica específica do seu login
             # (por exemplo, verificar papéis, fazer outras verificações)
+            # print("user:", self.serializer)
             return self.user
         except Roles.DoesNotExist:
             raise AuthenticationError
@@ -78,10 +79,23 @@ class CustomLoginView(LoginBaseClass):
         data = super().get_response().data
         print("validated_data:", self.serializer.validated_data)  # Adicione esta linha para verificar
         user = self.serializer.validated_data.get('user')
+        print("user:", user)
 
         if user:
+            # data['username'] = user.username
             roles_display = [role.display for role in user.role.all()]
-            data['roles'] = roles_display
+            # dados inventados
+            if 'id' not  in data:
+                data['id'] = "1"
+            if 'email' not  in data:
+                data['email'] = "a@a.c"
+            if 'username' not  in data:
+                data['username'] = "Camarada"
+            if 'permissions' not  in data:
+                data['permissions'] = ['list.text','add.element','delete.element']
+            if 'role' not  in data:
+                data['role'] = 'Administrador'
+
 
         access_token = self.serializer.validated_data.get('access')
         if access_token:

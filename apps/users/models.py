@@ -35,9 +35,19 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'mobile'
-    email = models.EmailField('email', blank=True, null=True)
+    email = models.EmailField('email', unique=True, blank=True, null=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    username = models.CharField(
+        unique=True,
+        max_length=255,
+        validators=[
+            RegexValidator(
+                regex=r'^[\w.@+-]+$',
+                message='Username may contain only letters, digits and @/./+/-/_ characters.'
+            ),
+        ],
+    )
     mobile = models.CharField(unique=True,validators=[phone_regex], max_length=17)
     role = models.ManyToManyField('Roles',related_name='user_role',blank=True)
     objects = UserManager()
@@ -46,8 +56,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return self.email
+    REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.mobile
     
     @classmethod
     def add_role(cls,current_user,current_role):
@@ -62,7 +74,40 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def permissions_codenames(self):
         return list(self.role.values_list('permissions__codename', flat=True))
+"""
 
+"""
+
+"""
+class User(AbstractBaseUser, PermissionsMixin):
+    USERNAME_FIELD = 'username'
+    email = models.EmailField('email', unique=True, blank=True, null=True)
+    username = models.CharField(max_length=255, unique=True)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    mobile = models.CharField(unique=True, validators=[phone_regex], max_length=17)
+    role = models.ManyToManyField('Roles', related_name='user_role', blank=True)
+    objects = UserManager()
+    groups = None
+    user_permissions = None
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.email
+    
+    @classmethod
+    def add_role(cls, current_user, current_role):
+        current_user.role.add(current_role)
+
+    @classmethod
+    def remove_role(cls, current_user, current_role):
+        current_user.role.remove(current_role)
+
+    @property
+    def permissions_codenames(self):
+        return list(self.role.values_list('permissions__codename', flat=True))
+"""
 
 
 

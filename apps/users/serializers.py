@@ -26,6 +26,7 @@ class UserSerializer(WritableNestedModelSerializer):
                 'email',
                 'mobile',
                 'role',
+                'username',
                 'password'
                 ]
         extra_kwargs = {
